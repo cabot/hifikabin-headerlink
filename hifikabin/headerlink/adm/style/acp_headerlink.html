@@ -1,0 +1,205 @@
+{% INCLUDECSS '@hifikabin_headerlink/spectrum.min.css' %}
+{% INCLUDECSS '@hifikabin_headerlink/headerlink.css' %}
+{% INCLUDEJS '@hifikabin_headerlink/spectrum.min.js' %}
+{% INCLUDEJS '@hifikabin_headerlink/headerlink.js' %}
+{% INCLUDE 'overall_header.html' %}
+<h1>{{ lang('ACP_HEADERLINK_CONFIG_EXPLAIN') }}</h1>
+
+<form id="acp_board" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('ACP_GENERAL_CONFIGURATION') }}</legend>
+		<dl>
+			<dt><label for="headerlink_enable">{{ lang('ACP_HEADERLINK_ENABLE') }}</label></dt>
+			<dd><input type="radio" class="radio" id="headerlink_enable" name="headerlink_enable" value="1" {% if HEADERLINK_ENABLE %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp; 
+				<input type="radio" class="radio" id="headerlink_enable" name="headerlink_enable" value="0" {% if not HEADERLINK_ENABLE %}checked="checked"{% endif %} /> {{ lang('NO') }}
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="headerlink_hover_colour">{{ lang('ACP_HEADERLINK_HOVER_COLOUR') ~ lang('COLON') }}</label>
+				<br><span>{{ lang('ACP_HEADERLINK_HOVER_COLOUR_EXPLAIN') }}</span>
+			</dt>
+			<dd>
+				<input class="input-color" type="text" id="headerlink_hover_colour" name="headerlink_hover_colour" value="{{ HEADERLINK_HOVER_COLOUR }}">
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="headerlink_navbar">{{ lang('ACP_HEADERLINK_NAVBAR') }}</label>
+			</dt>
+			<dd>
+				<select name="headerlink_navbar" id="headerlink_navbar">
+					<option value="1" {% if HEADERLINK_NAVBAR eq '1' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_SWITCH_IN_HEADER') }}</option>
+					<option value="2" {% if HEADERLINK_NAVBAR eq '2' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_SWITCH_UNDER_HEADER') }}</option>
+					<option value="3" {% if HEADERLINK_NAVBAR eq '3' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_SWITCH_IN_NAVBAR') }}</option>
+				</select>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<p class="submit-buttons">
+		{{ S_FORM_TOKEN }}
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+	</p>
+
+	<fieldset>
+		<legend>{{ lang('ACP_HEADERLINK_PREVIEW') }}</legend>
+		<ul id="headerlink-preview" class="headerlink-preview" style="--headerlink-hover-bg: {{ HEADERLINK_HOVER_COLOUR }};">
+		{% for headerlink_urls in loops.headerlink_urls %}
+			{% if headerlink_urls.HEADERLINK_URL %}
+			<li style="--headerlink-bg: {{ headerlink_urls.HEADERLINK_BUTTON_COLOUR }}; --headerlink-text-color: {{ headerlink_urls.HEADERLINK_TEXT_COLOUR }};{% if headerlink_urls.HEADERLINK_ICON_SW eq '1' %} --headerlink-icon-color: {{ headerlink_urls.HEADERLINK_ICON_COLOUR }};{% endif %}">
+				<a href="{{ headerlink_urls.HEADERLINK_URL }}"{% if headerlink_urls.HEADERLINK_HOVER %} title="{{ headerlink_urls.HEADERLINK_HOVER }}"{% endif %}{% if headerlink_urls.HEADERLINK_TARGET eq '0' %} target="_blank"{% endif %}>
+				{% if headerlink_urls.HEADERLINK_ICON_SW eq '1' %}
+					<i class="icon {{ headerlink_urls.HEADERLINK_ICON }} fa-fw"></i>
+				{% endif %}
+				<span {% if headerlink_urls.HEADERLINK_TEXT_SHADOW eq '1' %} style="text-shadow: 1px 1px {{ headerlink_urls.HEADERLINK_TEXT_SHADOW_COLOUR }}"{% endif %}>{{ headerlink_urls.HEADERLINK_NAME }}</span>
+				</a>
+			</li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+	</fieldset>
+
+	<fieldset id="headerlink_links">
+		<legend>{{ lang('HEADERLINK_MENU') }}</legend>
+		{% for headerlink_urls in loops.headerlink_urls %}
+		<fieldset>
+			<legend class="headerlink-name-legend" id="headerlink_name_legend_{{ loop.index }}">{% if headerlink_urls.HEADERLINK_NAME %}{{ headerlink_urls.HEADERLINK_NAME }}{% else %}{{ lang('HEADERLINK_DEFAULT_TITLE') }}{% endif %}</legend>
+			<dl>
+				<dt>
+					<label for="headerlink_url_{{ loop.index }}">{{ lang('ACP_HEADERLINK_URL') }}</label>
+					<br><span>{{ lang('ACP_HEADERLINK_URL_EXPLAIN') }}</span>
+				</dt>
+				<dd>
+					<input id="headerlink_url_{{ loop.index }}" name="headerlink_url[]" type="text" value="{{ headerlink_urls.HEADERLINK_URL }}" size="80%">
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="headerlink_name_{{ loop.index }}">{{ lang('ACP_HEADERLINK_NAME') }}</label>
+					<br><span>{{ lang('ACP_HEADERLINK_NAME_EXPLAIN') }}</span>
+				</dt>
+				<dd>
+					<input class="headerlink_name_input" id="headerlink_name_{{ loop.index }}" name="headerlink_name[]" type="text" value="{{ headerlink_urls.HEADERLINK_NAME }}" size="80%">
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="headerlink_hover_{{ loop.index }}">{{ lang('ACP_HEADERLINK_HOVER') }}</label>
+					<br><span>{{ lang('ACP_HEADERLINK_HOVER_EXPLAIN') }}</span>
+				</dt>
+				<dd>
+					<input id="headerlink_hover_{{ loop.index }}" name="headerlink_hover[]" type="text" value="{{ headerlink_urls.HEADERLINK_HOVER }}" size="80%">
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="headerlink_permission_{{ loop.index }}">{{ lang('ACP_HEADERLINK_PERMISSION') }}</label>
+				</dt>
+				<dd>
+					<select id="headerlink_permission_{{ loop.index }}" name="headerlink_permission[]">
+						<option value="0"{% if headerlink_urls.HEADERLINK_PERMISSION eq '0' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_DISABLE') }}</option>
+						<option value="1"{% if headerlink_urls.HEADERLINK_PERMISSION eq '1' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_GUEST') }}</option>
+						<option value="2"{% if headerlink_urls.HEADERLINK_PERMISSION eq '2' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_MEMBER') }}</option>
+						<option value="3"{% if headerlink_urls.HEADERLINK_PERMISSION eq '3' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_ACTIVE') }}</option>
+						<option value="4"{% if headerlink_urls.HEADERLINK_PERMISSION eq '4' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_ADMIN') }}</option>
+						<option value="5"{% if headerlink_urls.HEADERLINK_PERMISSION eq '5' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_MOD') }}</option>
+					</select>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="headerlink_target_{{ loop.index }}">{{ lang('ACP_HEADERLINK_TARGET') }}</label>
+				</dt>
+				<dd>
+					<select id="headerlink_target_{{ loop.index }}" name="headerlink_target[]">
+						<option value="0"{% if headerlink_urls.HEADERLINK_TARGET eq '0' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_NEW') }}</option>
+						<option value="1"{% if headerlink_urls.HEADERLINK_TARGET eq '1' %} selected="selected"{% endif %}>{{ lang('ACP_HEADERLINK_SAME') }}</option>
+					</select>
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="headerlink_text_colour_{{ loop.index }}">{{ lang('ACP_HEADERLINK_TEXT_COLOUR') }}</label>
+				</dt>
+				<dd>
+					<input class="input-color" type="text" id="headerlink_text_colour_{{ loop.index }}" name="headerlink_text_colour[]" data-text-color value="{% if headerlink_urls.HEADERLINK_TEXT_COLOUR %}{{ headerlink_urls.HEADERLINK_TEXT_COLOUR }}{% else %}#105289{% endif %}">
+				</dd>
+			</dl>
+			<dl>
+				<dt>
+					<label for="headerlink_button_colour_{{ loop.index }}">{{ lang('ACP_HEADERLINK_BUTTON_COLOUR') }}</label>
+				</dt>
+				<dd>
+					<input class="input-color transparent" type="text" name="headerlink_button_colour[]" data-button-color id="headerlink_button_colour_{{ loop.index }}" value="{% if headerlink_urls.HEADERLINK_BUTTON_COLOUR %}{{ headerlink_urls.HEADERLINK_BUTTON_COLOUR }}{% else %}transparent{% endif %}">
+				</dd>
+			</dl>
+			<dl data-has-toggler="text_shadow_{{ loop.index }}">
+				<dt>
+					<label for="headerlink_text_shadow_{{ loop.index }}">{{ lang('ACP_HEADERLINK_TEXT_SHADOW') }}</label>
+				</dt>
+				<dd>
+					<select id="headerlink_text_shadow_{{ loop.index }}" name="headerlink_text_shadow[]">
+						<option value="0"{% if headerlink_urls.HEADERLINK_TEXT_SHADOW eq '0' %} selected="selected"{% endif %}>{{ lang('NO') }}</option>
+						<option value="1"{% if headerlink_urls.HEADERLINK_TEXT_SHADOW eq '1' %} selected="selected"{% endif %}>{{ lang('YES') }}</option>
+					</select>
+				</dd>
+			</dl>
+			<dl data-is-togglable="text_shadow_{{ loop.index }}">
+				<dt>
+					<label for="headerlink_text_shadow_colour_{{ loop.index }}">{{ lang('ACP_HEADERLINK_TEXT_SHADOW_COLOUR') }}</label>
+				</dt>
+				<dd>
+					<input class="input-color transparent" type="text" name="headerlink_text_shadow_colour[]" data-text-shadow id="headerlink_text_shadow_colour_{{ loop.index }}" value="{% if headerlink_urls.HEADERLINK_TEXT_SHADOW_COLOUR %}{{ headerlink_urls.HEADERLINK_TEXT_SHADOW_COLOUR }}{% else %}transparent{% endif %}">
+				</dd>
+			</dl>
+			<dl data-has-toggler="icon_sw_{{ loop.index }}">
+				<dt>
+					<label for="headerlink_icon_sw_{{ loop.index }}">{{ lang('ACP_HEADERLINK_ICON') }}</label>
+					<br><span>{{ lang('ACP_HEADERLINK_ICON_EXPLAIN') }}</span>
+				</dt>
+				<dd>
+					<select id="headerlink_icon_sw_{{ loop.index }}" name="headerlink_icon_sw[]">
+						<option value="0"{% if headerlink_urls.HEADERLINK_ICON_SW eq 0 %} selected="selected"{% endif %}>{{ lang('NO') }}</option>
+						<option value="1"{% if headerlink_urls.HEADERLINK_ICON_SW eq 1 %} selected="selected"{% endif %}>{{ lang('YES') }}</option>
+					</select>
+				</dd>
+			</dl>
+			<dl data-is-togglable="icon_sw_{{ loop.index }}">
+				<dt>
+					<label for="headerlink_icon_{{ loop.index }}">{{ lang('ACP_HEADERLINK_ICON_CODE') }}</label>
+					<br><span>{{ lang('ACP_HEADERLINK_ICON_CODE_EXPLAIN') }}</span>
+				</dt>
+				<dd>
+					<input id="headerlink_icon_{{ loop.index }}" name="headerlink_icon[]" type="text" value="{{ headerlink_urls.HEADERLINK_ICON }}" size="18%">
+				</dd>
+			</dl>
+			<dl data-is-togglable="icon_sw_{{ loop.index }}">
+				<dt>
+					<label for="headerlink_icon_colour_{{ loop.index }}">{{ lang('ACP_HEADERLINK_ICON_COLOUR') }}</label>
+				</dt>
+				<dd>
+					<input class="input-color" type="text" name="headerlink_icon_colour[]" data-icon-color id="headerlink_icon_colour_{{ loop.index }}" value="{% if headerlink_urls.HEADERLINK_ICON_COLOUR %}{{ headerlink_urls.HEADERLINK_ICON_COLOUR }}{% else %}#105289{% endif %}">
+				</dd>
+			</dl>			
+		</fieldset>
+		{% endfor %}
+	</fieldset>
+
+	<p id="clone-link" class="submit-buttons">
+		<input id="clone_btn" type="button" class="button2" value="{{ lang('ACP_HEADERLINK_MORE_LINKS') }}">
+	</p>
+
+	<p class="submit-buttons">
+		{{ S_FORM_TOKEN }}
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+	</p>
+</form>
+<script>
+	let defaultLegendLang = "{{ lang('HEADERLINK_DEFAULT_TITLE')|e ('js') }}",
+		confirmLang = "{{ lang('CONFIRM')|e ('js') }}",
+		cancelLang = "{{ lang('CANCEL')|e ('js') }}";
+</script>
+{% INCLUDE 'overall_footer.html' %}

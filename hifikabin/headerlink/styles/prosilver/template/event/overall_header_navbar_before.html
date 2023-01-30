@@ -1,0 +1,8 @@
+{% if HEADERLINK_ENABLE and HEADERLINK_NAVBAR eq '2' %}
+{% INCLUDECSS '@hifikabin_headerlink/headerlink_navbar_before.css' %}
+<div id="headerlink-wrap" class="forumbg headerlink-wrap">
+	<div class="inner">
+		{% INCLUDE 'headerlink.html' %}
+	</div>
+</div>
+{% endif %}

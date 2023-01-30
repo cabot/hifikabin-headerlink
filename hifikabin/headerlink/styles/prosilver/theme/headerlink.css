@@ -1,0 +1,51 @@
+.headerlink-wrap {
+    clear: both;
+}
+
+.headerlink {
+    display: flex;
+}
+
+.headerlink li {
+    list-style-type: none;
+	margin: 0 2px;
+}
+
+.headerlink a {
+	background-color: var(--headerlink-bg);
+	border-radius: 4px;
+	display: block;
+    font-size: 13px;
+	padding: 7px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.headerlink a:hover {
+	background-color: var(--headerlink-hover-color);
+}
+
+.headerlink i {
+	color: var(--headerlink-icon-color);
+}
+
+.headerlink span {
+	color: var(--headerlink-text-color);
+}
+
+.sublist {
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	top: 100%;
+	right: 0;
+    z-index: 99;
+}
+
+.sublist li {
+	margin: 2px 0 0;
+}
+
+.has-sublist {
+	position: relative;
+}

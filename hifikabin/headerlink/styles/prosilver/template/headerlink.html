@@ -1,0 +1,14 @@
+<ul id="headerlink" class="headerlink" style="--headerlink-hover-color: {{ HEADERLINK_HOVER_COLOUR }};">
+{% for headerlink_urls in loops.headerlink_urls %}
+	{% if (headerlink_urls.HEADERLINK_PERMISSION eq '1' and not S_USER_LOGGED_IN) or (headerlink_urls.HEADERLINK_PERMISSION eq '2' and S_USER_LOGGED_IN) or (headerlink_urls.HEADERLINK_PERMISSION eq '4' and U_ACP) or (headerlink_urls.HEADERLINK_PERMISSION eq '5' and U_MCP) or headerlink_urls.HEADERLINK_PERMISSION eq '3' %}
+	<li class="headerlink-item nav-button" style="--headerlink-bg: {{ headerlink_urls.HEADERLINK_BUTTON_COLOUR }}; --headerlink-text-color: {{ headerlink_urls.HEADERLINK_TEXT_COLOUR }};{% if headerlink_urls.HEADERLINK_ICON_SW eq '1' %} --headerlink-icon-color: {{ headerlink_urls.HEADERLINK_ICON_COLOUR }};{% endif %}">
+		<a class="headerlink-link" href="{{ headerlink_urls.HEADERLINK_URL }}"{% if headerlink_urls.HEADERLINK_HOVER %} title="{{ headerlink_urls.HEADERLINK_HOVER }}"{% endif %}{% if headerlink_urls.HEADERLINK_TARGET eq 0 %} target="_blank"{% endif %}{% if headerlink_urls.HEADERLINK_TEXT_SHADOW eq 1 %} style="text-shadow: 1px 1px {{ headerlink_urls.HEADERLINK_TEXT_SHADOW_COLOUR }};"{% endif %}>
+			{% if headerlink_urls.HEADERLINK_ICON  %}
+			<i class="icon {{ headerlink_urls.HEADERLINK_ICON }} fa-fw"></i>
+			{% endif %}
+			<span>{{ headerlink_urls.HEADERLINK_NAME }}</span>
+		</a>
+	</li>
+	{% endif %}
+{% endfor %}
+</ul>

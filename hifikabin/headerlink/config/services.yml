@@ -1,0 +1,14 @@
+parameters:
+    tables.headerlink_table: '%core.table_prefix%headerlink'
+services:
+    hifikabin.headerlink.listener:
+        class: hifikabin\headerlink\event\listener
+        arguments:
+        - '@template'
+        - '@user'
+        - '@dbal.conn'
+        - '@request'
+        - '%tables.headerlink_table%'
+        - '@config'
+        tags:
+            - { name: event.listener }
