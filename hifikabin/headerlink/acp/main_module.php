@@ -75,6 +75,7 @@ class main_module
 			$config->set('headerlink_enable', $request->variable('headerlink_enable', 0));
 			$config->set('headerlink_hover_colour', $request->variable('headerlink_hover_colour', ''));
 			$config->set('headerlink_navbar', $request->variable('headerlink_navbar', 0));
+			$config->set('headerlink_align', $request->variable('headerlink_align', 0));
 
 			$sql = 'DELETE FROM ' . $headerlink_table ;
 			$db->sql_query($sql);
@@ -119,14 +120,15 @@ class main_module
 			$user_id = $user->data['user_id'];
 			$user_ip = $user->ip;
 
-			$phpbb_log->add('admin', $user_id, $user_ip, 'HEADERLINK_SAVED');
-			trigger_error($user->lang['HEADERLINK_SAVED'] . adm_back_link($this->u_action));
+			$phpbb_log->add('admin', $user_id, $user_ip, 'ACP_HEADERLINK_SAVED');
+			trigger_error($user->lang['ACP_HEADERLINK_SAVED'] . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars(array(
 			'HEADERLINK_ENABLE'					=> $this->config['headerlink_enable'],
 			'HEADERLINK_HOVER_COLOUR'			=> $this->config['headerlink_hover_colour'],
 			'HEADERLINK_NAVBAR'					=> $this->config['headerlink_navbar'],
+			'HEADERLINK_ALIGN'					=> $this->config['headerlink_align'],
 			));
 	}
 }
