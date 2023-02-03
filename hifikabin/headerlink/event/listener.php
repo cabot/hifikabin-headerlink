@@ -83,6 +83,7 @@ class listener implements EventSubscriberInterface
 			'HEADERLINK_ENABLE'					=> $this->config['headerlink_enable'],
 			'HEADERLINK_HOVER_COLOUR'			=> $this->config['headerlink_hover_colour'],
 			'HEADERLINK_NAVBAR'					=> $this->config['headerlink_navbar'],
+			'HEADERLINK_ALIGN'					=> $this->config['headerlink_align'],
 			));
 
 		$sql = 'SELECT * 
