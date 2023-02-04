@@ -2,6 +2,12 @@
     clear: both;
 }
 
+.headerlink-wrap.headerlink-navbar {
+	float: none;
+	line-height: 1;
+	margin-bottom: 2px;
+}
+
 .headerlink {
     display: flex;
 }
