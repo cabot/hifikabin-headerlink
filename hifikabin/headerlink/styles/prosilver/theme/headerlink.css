@@ -61,6 +61,11 @@
 	z-index: 99;
 }
 
+.rtl .sublist {
+	left: 0;
+	right: auto;
+}
+
 .sublist li {
 	margin: 2px 0 0;
 }
