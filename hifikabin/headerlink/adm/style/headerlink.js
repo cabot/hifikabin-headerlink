@@ -3,58 +3,156 @@ function spectrumize() {
         type: "component",
         showPalette: false,
         showInput: true,
-        clickoutFiresChange: false,
-        allowEmpty: false,
-        chooseText: confirmLang,
-        cancelText: cancelLang
+        showButtons: false,
+        allowEmpty: false
     });
 }
 
-function change_legend() {
-    $(".headerlink_name_input").on("change", function () {
-        let thisValue;
+function preview() {
+    let $hoverBgColor = $("#headerlink_hover_colour"),
+        $mainPreview = $("#headerlink-preview"),
+        inputHeight = $hoverBgColor.outerHeight();
 
-        if (!$(this).val()) {
-            thisValue = defaultLegendLang;
-        } else {
-            thisValue = $(this).val();
-        }
-
-        $(this).closest("fieldset").find("legend").text(thisValue);
+    // Live preview of background-color on hover
+    $hoverBgColor.on("change", function () {
+        $("#acp_board").css("--headerlink-hover-bg", $(this).val());
     });
-}
 
-function toggle_options() {
-    let inputHeight = $("#headerlink_links").find(".input-color").first().outerHeight();
-
-    $("[data-has-toggler]").each(function () {
-        let optionSelected = $("option:selected", $(this)),
-            isTogglable = $(this).siblings().filter("[data-is-togglable=" + $(this).data("has-toggler") + "]");
-
-        if (optionSelected.val() == 1) {
-            isTogglable.show();
-        } else {
-            isTogglable.hide()
-                .addClass("is-hidden")
-                .find(".sp-colorize-container")
-                .width(inputHeight + "px");
+    // Live preview of links alignment
+    $("#headerlink_align").on("change", function () {
+        if ($(this).val() == 1) {
+            $mainPreview.css("--justify-content", "start");
+        } else if ($(this).val() == 2) {
+            $mainPreview.css("--justify-content", "center");
+        } else if ($(this).val() == 3) {
+            $mainPreview.css("--justify-content", "end");
         }
+    });
 
-        $("select", $(this)).on("change", function () {
-            if ($(this).val() == 1) {
-                isTogglable.slideDown(200).removeClass("is-hidden");
-            } else if ($(this).val() == 0) {
-                isTogglable.slideUp(200).addClass("is-hidden");
+    $(".link-row").each(function () {
+        let $linkRow = $(this),
+            $legendRow = $("legend", $linkRow),
+            $mainPreviewItem = $mainPreview.find("[data-row=" + $linkRow.attr("id") + "]");
+
+        // Live preview of link name
+        $(".headerlink_name_input", $linkRow).each(function () {
+            $(this).on("input", function () {
+                let linkName;
+
+                if (!$(this).val()) {
+                    linkName = defaultLegendLang;
+                } else {
+                    linkName = $(this).val();
+                }
+                $("span", $legendRow).text(linkName);
+                $mainPreviewItem.find("span").text(linkName);
+            });
+        });
+
+        // Live preview of link title
+        $(".headerlink_hover", $linkRow).each(function () {
+            $(this).on("change", function () {
+                let titleValue;
+
+                if (!$(this).val()) {
+                    titleValue = "";
+                } else {
+                    titleValue = $(this).val();
+                }
+                $legendRow.attr("title", titleValue);
+                $mainPreviewItem.find("a").attr("title", titleValue);
+            });
+        });
+
+        // Live preview of link background-color
+        $(".input-color", $linkRow).each(function () {
+            if ($(this).data("css-var")) {
+                $(this).on("change", function () {
+                    $legendRow.css($(this).data("css-var"), $(this).val());
+                    $mainPreviewItem.css($(this).data("css-var"), $(this).val());
+                });
             }
         });
+
+        // Show/hide text-shadow settings
+        // Live preview of link text-shadow
+        $('[data-has-toggler*="text_shadow_"]', $linkRow).each(function () {
+            let optionSelected = $("option:selected", $(this)),
+                $siblings = $(this).siblings().filter("[data-is-togglable=" + $(this).data("has-toggler") + "]"),
+                shadowDataAttr = $siblings.find(".text-shadow").data("css-var");
+
+            if (optionSelected.val() == 1) {
+                $siblings.show();
+            } else {
+                $siblings.hide().find(".sp-colorize-container").width(inputHeight + "px");
+            }
+
+            $("select", $(this)).on("change", function () {
+                if ($(this).val() == 1) {
+                    $legendRow.css(shadowDataAttr, $siblings.find(".text-shadow").val());
+                    $siblings.slideDown(200);
+                    $mainPreviewItem.css(shadowDataAttr, $siblings.find(".text-shadow").val());
+                } else if ($(this).val() == 0) {
+                    $legendRow.css(shadowDataAttr, "transparent");
+                    $siblings.slideUp(200);
+                    $mainPreviewItem.css(shadowDataAttr, "transparent");
+                }
+            });
+        });
+
+        // Show/hide icon settings
+        // Live preview of icon settings
+        $('[data-has-toggler*="icon_sw_"]', $linkRow).each(function () {
+            let optionSelected = $("option:selected", $(this)),
+                $siblings = $(this).siblings().filter("[data-is-togglable=" + $(this).data("has-toggler") + "]"),
+                cssClass = "";
+
+            if (optionSelected.val() == 1) {
+                $siblings.show();
+                $legendRow.find("i").attr("class", "icon fa-fw " + $siblings.find(".input-fa-icon").val() + "");
+            } else {
+                $siblings.hide().find(".sp-colorize-container").width(inputHeight + "px");
+            }
+
+            // Live preview of icon
+            $siblings.find(".input-fa-icon").on("input", function () {
+                if (!$(this).val()) {
+                    cssClass = "";
+                } else {
+                    cssClass = "icon fa-fw " + $(this).val() + "";
+                }
+                $legendRow.find("i").attr("class", cssClass);
+                $mainPreviewItem.find("i").attr("class", cssClass);
+            });
+
+            // Show/hide icon settings
+            $("select", $(this)).on("change", function () {
+                if ($(this).val() == 1) {
+                    cssClass = "icon fa-fw " + $siblings.find(".input-fa-icon").val() + "";
+                    $siblings.slideDown(200);
+                } else {
+                    cssClass = "";
+                    $siblings.slideUp(200);
+                }
+                $legendRow.find("i").attr("class", cssClass);
+                $mainPreviewItem.find("i").attr("class", cssClass);
+            });
+        });
+
     });
 }
+
+spectrumize();
+preview();
 
 function new_clone() {
     let $lastFieldset = $("#headerlink_links").find("fieldset").last();
 
     $lastFieldset.clone()
-        .find("legend").text(defaultLegendLang).end()
+        .find("legend").attr("style", "").end()
+        .find("legend").attr("title", "").end()
+        .find("legend span").text(defaultLegendLang).end()
+        .find("legend i").attr("class", "").end()
         .find("input:text").val("").end()
         .find(".input-color").unwrap().end()
         .find(".sp-colorize-container").remove().end()
@@ -63,13 +161,8 @@ function new_clone() {
         .appendTo("#headerlink_links");
 
     spectrumize();
-    toggle_options();
-    change_legend();
+    preview();
 }
-
-spectrumize();
-toggle_options();
-change_legend();
 
 $("#clone_btn").on("click", function () {
     new_clone();

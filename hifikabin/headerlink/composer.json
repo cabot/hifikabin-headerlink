@@ -9,13 +9,13 @@
 		"name": "James Newcombe",
 		"username": "HiFiKabin",
 		"email": "webmaster@hifikabin.me.uk",
-		"homepage": "http://phpbb.hifikabin.me.uk",
+		"homepage": "https://phpbb.hifikabin.me.uk/",
 		"role": "Developer"
 		},
 		{
-		"name": "Jan Odvarko",
-		"homepage": "http://odvarko.cz",
-		"role": "Creator - jscolor, JavaScript Color Picker"
+		"name": "Sebastian Castro",
+		"homepage": "https://github.com/seballot/spectrum",
+		"role": "Spectrum color JS"
 		},
 		{
 		"name": "Tom Beddard",
@@ -26,6 +26,11 @@
 		"name": "phpBB Limited",
 		"homepage": "https://www.phpbb.com/",
 		"role": "Style Modifier"
+		},
+		{
+		"name": "cabot",
+		"homepage": "https://forum.cabotweb.fr/",
+		"role": "SushiMaker"
 		}],
 	"require": {
 		"php": ">=5.4.0"

@@ -1,5 +1,5 @@
 .headerlink-wrap {
-    clear: both;
+	clear: both;
 }
 
 .headerlink-wrap.headerlink-navbar {
@@ -9,11 +9,19 @@
 }
 
 .headerlink {
-    display: flex;
+	display: flex;
+}
+
+.headerlink-center {
+	justify-content: center;
+}
+
+.headerlink-end {
+	justify-content: end;
 }
 
 .headerlink li {
-    list-style-type: none;
+	list-style-type: none;
 	margin: 0 2px;
 }
 
@@ -21,14 +29,19 @@
 	background-color: var(--headerlink-bg);
 	border-radius: 4px;
 	display: block;
-    font-size: 13px;
+	font-size: 13px;
 	padding: 7px;
 	text-decoration: none;
+	transition: background-color 0.2s;
 	white-space: nowrap;
 }
 
 .headerlink a:hover {
-	background-color: var(--headerlink-hover-color);
+	background-color: var(--headerlink-hover-bg);
+}
+
+.headerlink[style*="transparent"] a:hover {
+	--headerlink-hover-bg: var(--headerlink-bg);
 }
 
 .headerlink i {
@@ -45,7 +58,7 @@
 	position: absolute;
 	top: 100%;
 	right: 0;
-    z-index: 99;
+	z-index: 99;
 }
 
 .sublist li {
