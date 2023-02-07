@@ -1,7 +1,5 @@
-{% if HEADERLINK_ENABLE and HEADERLINK_NAVBAR eq '1' %}
+{% if HEADERLINK_ENABLE and HEADERLINK_NAVBAR eq '1' and definition.HAS_LINK_TO_SHOW %}
 <div id="headerlink-wrap" class="headerlink-wrap">
-	<div class="inner">
-		{% INCLUDE 'headerlink.html' %}
-	</div>
+	{% INCLUDE 'headerlink.html' %}
 </div>
 {% endif %}
