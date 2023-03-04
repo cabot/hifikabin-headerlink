@@ -13,15 +13,15 @@ class main_info
 {
 	function module()
 	{
-		return array(
+		return [
 			'filename'	=> '\hifikabin\headerlink\acp\main_module',
 			'title'		=> 'ACP_HEADERLINK_TITLE',
-			'modes'		=> array(
-				'settings'	=> array(
+			'modes'		=> [
+				'settings'	=> [
 					'title' 	=> 'ACP_HEADERLINK_CONFIG',
 					'auth' 		=> 'hifikabin/headerlink && acl_a_board',
-					'cat'		=> array('ACP_HEADERLINK_CONFIG')),
-				),
-		);
+					'cat'		=> ['ACP_HEADERLINK_CONFIG']],
+			],
+		];
 	}
 }
