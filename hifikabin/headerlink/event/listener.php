@@ -31,7 +31,7 @@ class listener implements EventSubscriberInterface
 	/** @var  \phpbb\request\request */
 	protected $request;
 
-	/** @var  \headerlink_table */
+	/** @var string */
 	protected $headerlink_table;
 
 	/** @var \phpbb\config\config */
