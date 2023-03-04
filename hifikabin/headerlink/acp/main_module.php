@@ -15,18 +15,19 @@ namespace hifikabin\headerlink\acp;
 
 class main_module
 {
-	var $u_action;
+	/** @var string */
+	public $u_action;
+	/** @var string */
+	public $tpl_name;
+	/** @var string */
+	public $page_title;
 
 	function main($id, $mode)
 	{
-		global $db, $user, $template, $request, $phpbb_log, $phpbb_container, $cache, $config;
+		global $db, $user, $template, $request, $phpbb_log, $phpbb_container, $cache, $config, $language;
 
-		$this->cache = $cache;
 		$this->tpl_name 		= 'acp_headerlink';
-		$this->page_title 		= $user->lang['ACP_HEADERLINK_TITLE'];
-		$this->request 			= $request;
-		$this->log				= $phpbb_log;
-		$this->config			= $config;
+		$this->page_title 		= $language->lang('ACP_HEADERLINK_TITLE');
 		$headerlink_table		= $phpbb_container->getParameter('tables.headerlink_table');
 
 		add_form_key('headerlink/acp_headerlink');
@@ -94,26 +95,26 @@ class main_module
 			$headerlink_text_shadow_colour 		= $this->request->variable('headerlink_text_shadow_colour', array('' => ''),true);
 
 			$i = 0;
+			$sql_ary = array();
 			while ($i < count($headerlink_url))
 			{
-				$sql_ary1 = array(
-				'headerlink_url' 					=> $headerlink_url[$i],
-				'headerlink_name'					=> $headerlink_name[$i],
-				'headerlink_hover'					=> $headerlink_hover[$i],
-				'headerlink_icon' 					=> $headerlink_icon[$i],
-				'headerlink_icon_colour' 			=> $headerlink_icon_colour[$i],
-				'headerlink_icon_sw' 				=> $headerlink_icon_sw[$i],
-				'headerlink_permission'				=> $headerlink_permission[$i],
-				'headerlink_target'					=> $headerlink_target[$i],
-				'headerlink_button_colour' 			=> $headerlink_button_colour[$i],
-				'headerlink_text_colour'			=> $headerlink_text_colour[$i],
-				'headerlink_text_shadow'			=> $headerlink_text_shadow[$i],
-				'headerlink_text_shadow_colour'		=> $headerlink_text_shadow_colour[$i],
-
+				$sql_ary[] = array(
+					'headerlink_url' 					=> $headerlink_url[$i],
+					'headerlink_name'					=> $headerlink_name[$i],
+					'headerlink_hover'					=> $headerlink_hover[$i],
+					'headerlink_icon' 					=> $headerlink_icon[$i],
+					'headerlink_icon_colour' 			=> $headerlink_icon_colour[$i],
+					'headerlink_icon_sw' 				=> $headerlink_icon_sw[$i],
+					'headerlink_permission'				=> $headerlink_permission[$i],
+					'headerlink_target'					=> $headerlink_target[$i],
+					'headerlink_button_colour' 			=> $headerlink_button_colour[$i],
+					'headerlink_text_colour'			=> $headerlink_text_colour[$i],
+					'headerlink_text_shadow'			=> $headerlink_text_shadow[$i],
+					'headerlink_text_shadow_colour'		=> $headerlink_text_shadow_colour[$i],
 				);
-				$db->sql_query('INSERT INTO ' . $headerlink_table . ' ' . $db->sql_build_array('INSERT', $sql_ary1));
 				$i++;
 			}
+			$db->sql_multi_insert($headerlink_table,  $sql_ary);
 
 			$cache->destroy('sql', $headerlink_table);
 
@@ -121,7 +122,7 @@ class main_module
 			$user_ip = $user->ip;
 
 			$phpbb_log->add('admin', $user_id, $user_ip, 'ACP_HEADERLINK_SAVED');
-			trigger_error($user->lang['ACP_HEADERLINK_SAVED'] . adm_back_link($this->u_action));
+			trigger_error($language->lang('ACP_HEADERLINK_SAVED') . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars(array(
