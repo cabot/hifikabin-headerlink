@@ -3,7 +3,7 @@
 *
 * @package phpBB Extension - Header Link
 * @copyright (c) 2015 - HiFiKabin
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
@@ -20,7 +20,8 @@ class main_info
 				'settings'	=> [
 					'title' 	=> 'ACP_HEADERLINK_CONFIG',
 					'auth' 		=> 'hifikabin/headerlink && acl_a_board',
-					'cat'		=> ['ACP_HEADERLINK_CONFIG']],
+					'cat'		=> ['ACP_HEADERLINK_CONFIG'],
+				],
 			],
 		];
 	}
