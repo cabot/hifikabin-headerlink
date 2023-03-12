@@ -3,7 +3,7 @@
 *
 * @package phpBB Extension - Header Link
 * @copyright (c) 2015 - HiFiKabin
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @license GNU General Public License, version 2 (GPL-2.0)
 *
 */
 
@@ -40,7 +40,7 @@ class main_module
 		{
 			if (!empty($row['headerlink_url']))
 			{
-				$template->assign_block_vars('headerlink_urls', array(
+				$template->assign_block_vars('headerlink_urls', [
 					'HEADERLINK_URL'					=> $row['headerlink_url'],
 					'HEADERLINK_NAME'					=> $row['headerlink_name'],
 					'HEADERLINK_HOVER'					=> $row['headerlink_hover'],
@@ -53,15 +53,15 @@ class main_module
 					'HEADERLINK_TEXT_COLOUR'			=> $row['headerlink_text_colour'],
 					'HEADERLINK_TEXT_SHADOW'			=> $row['headerlink_text_shadow'],
 					'HEADERLINK_TEXT_SHADOW_COLOUR'		=> $row['headerlink_text_shadow_colour'],
-					));
+				]);
 			}
 		};
 
 		if (empty($row['headerlink_url']))
 		{
-			$template->assign_block_vars('headerlink_urls', array(
-				'HEADERLINK_URL' => '',
-			));
+			$template->assign_block_vars('headerlink_urls', [
+				'HEADERLINK_URL'	=> '',
+			]);
 		};
 		$db->sql_freeresult($result);
 
@@ -95,10 +95,10 @@ class main_module
 			$headerlink_text_shadow_colour 		= $this->request->variable('headerlink_text_shadow_colour', array('' => ''),true);
 
 			$i = 0;
-			$sql_ary = array();
+			$sql_ary = [];
 			while ($i < count($headerlink_url))
 			{
-				$sql_ary[] = array(
+				$sql_ary[] = [
 					'headerlink_url' 					=> $headerlink_url[$i],
 					'headerlink_name'					=> $headerlink_name[$i],
 					'headerlink_hover'					=> $headerlink_hover[$i],
@@ -111,7 +111,7 @@ class main_module
 					'headerlink_text_colour'			=> $headerlink_text_colour[$i],
 					'headerlink_text_shadow'			=> $headerlink_text_shadow[$i],
 					'headerlink_text_shadow_colour'		=> $headerlink_text_shadow_colour[$i],
-				);
+				];
 				$i++;
 			}
 			$db->sql_multi_insert($headerlink_table,  $sql_ary);
@@ -125,11 +125,11 @@ class main_module
 			trigger_error($language->lang('ACP_HEADERLINK_SAVED') . adm_back_link($this->u_action));
 		}
 
-		$template->assign_vars(array(
-			'HEADERLINK_ENABLE'					=> $this->config['headerlink_enable'],
-			'HEADERLINK_HOVER_COLOUR'			=> $this->config['headerlink_hover_colour'],
-			'HEADERLINK_NAVBAR'					=> $this->config['headerlink_navbar'],
-			'HEADERLINK_ALIGN'					=> $this->config['headerlink_align'],
-			));
+		$template->assign_vars([
+			'HEADERLINK_ENABLE'				=> $this->config['headerlink_enable'],
+			'HEADERLINK_HOVER_COLOUR'		=> $this->config['headerlink_hover_colour'],
+			'HEADERLINK_NAVBAR'				=> $this->config['headerlink_navbar'],
+			'HEADERLINK_ALIGN'				=> $this->config['headerlink_align'],
+		]);
 	}
 }
