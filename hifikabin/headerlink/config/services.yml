@@ -6,9 +6,9 @@ services:
         arguments:
         - '@template'
         - '@user'
+        - '@config'
         - '@dbal.conn'
         - '@request'
         - '%tables.headerlink_table%'
-        - '@config'
         tags:
             - { name: event.listener }
