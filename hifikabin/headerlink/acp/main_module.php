@@ -26,9 +26,10 @@ class main_module
 	{
 		global $db, $user, $template, $request, $phpbb_log, $phpbb_container, $cache, $config, $language;
 
-		$this->tpl_name 		= 'acp_headerlink';
-		$this->page_title 		= $language->lang('ACP_HEADERLINK_TITLE');
-		$headerlink_table		= $phpbb_container->getParameter('tables.headerlink_table');
+		$this->tpl_name = 'acp_headerlink';
+		$language->add_lang('acp_headerlink', 'hifikabin/headerlink');
+		$this->page_title = $language->lang('ACP_HEADERLINK_TITLE');
+		$headerlink_table = $phpbb_container->getParameter('tables.headerlink_table');
 
 		add_form_key('headerlink/acp_headerlink');
 
@@ -77,22 +78,24 @@ class main_module
 			$config->set('headerlink_hover_colour', $request->variable('headerlink_hover_colour', ''));
 			$config->set('headerlink_navbar', $request->variable('headerlink_navbar', 0));
 			$config->set('headerlink_align', $request->variable('headerlink_align', 0));
+			$config->set('headerlink_responsive', $request->variable('headerlink_responsive', 0));
+			$config->set('headerlink_responsive_width', $request->variable('headerlink_responsive_width', ''));
 
 			$sql = 'DELETE FROM ' . $headerlink_table ;
 			$db->sql_query($sql);
 
-			$headerlink_url 					= $this->request->variable('headerlink_url', array('' => ''),true);
-			$headerlink_name 					= $this->request->variable('headerlink_name', array('' => ''),true);
-			$headerlink_hover 					= $this->request->variable('headerlink_hover', array('' => ''),true);
-			$headerlink_icon 					= $this->request->variable('headerlink_icon', array('' => ''),true);
-			$headerlink_icon_colour 			= $this->request->variable('headerlink_icon_colour', array('' => ''),true);
-			$headerlink_icon_sw 				= $this->request->variable('headerlink_icon_sw', array('' => ''),true);
-			$headerlink_permission 				= $this->request->variable('headerlink_permission', array('' => ''),true);
-			$headerlink_target 					= $this->request->variable('headerlink_target', array('' => ''),true);
-			$headerlink_button_colour 			= $this->request->variable('headerlink_button_colour', array('' => ''),true);
-			$headerlink_text_colour 			= $this->request->variable('headerlink_text_colour', array('' => ''),true);
-			$headerlink_text_shadow 			= $this->request->variable('headerlink_text_shadow', array('' => ''),true);
-			$headerlink_text_shadow_colour 		= $this->request->variable('headerlink_text_shadow_colour', array('' => ''),true);
+			$headerlink_url 					= $request->variable('headerlink_url', ['' => ''], true);
+			$headerlink_name 					= $request->variable('headerlink_name', ['' => ''], true);
+			$headerlink_hover 					= $request->variable('headerlink_hover', ['' => ''], true);
+			$headerlink_icon 					= $request->variable('headerlink_icon', ['' => ''], true);
+			$headerlink_icon_colour 			= $request->variable('headerlink_icon_colour', ['' => ''], true);
+			$headerlink_icon_sw 				= $request->variable('headerlink_icon_sw', ['' => ''], true);
+			$headerlink_permission 				= $request->variable('headerlink_permission', ['' => ''], true);
+			$headerlink_target 					= $request->variable('headerlink_target', ['' => ''], true);
+			$headerlink_button_colour 			= $request->variable('headerlink_button_colour', ['' => ''], true);
+			$headerlink_text_colour 			= $request->variable('headerlink_text_colour', ['' => ''], true);
+			$headerlink_text_shadow 			= $request->variable('headerlink_text_shadow', ['' => ''], true);
+			$headerlink_text_shadow_colour 		= $request->variable('headerlink_text_shadow_colour', ['' => ''], true);
 
 			$i = 0;
 			$sql_ary = [];
@@ -126,10 +129,12 @@ class main_module
 		}
 
 		$template->assign_vars([
-			'HEADERLINK_ENABLE'				=> $this->config['headerlink_enable'],
-			'HEADERLINK_HOVER_COLOUR'		=> $this->config['headerlink_hover_colour'],
-			'HEADERLINK_NAVBAR'				=> $this->config['headerlink_navbar'],
-			'HEADERLINK_ALIGN'				=> $this->config['headerlink_align'],
+			'HEADERLINK_ENABLE'					=> $config['headerlink_enable'],
+			'HEADERLINK_HOVER_COLOUR'			=> $config['headerlink_hover_colour'],
+			'HEADERLINK_NAVBAR'					=> $config['headerlink_navbar'],
+			'HEADERLINK_ALIGN'					=> $config['headerlink_align'],
+			'HEADERLINK_RESPONSIVE'				=> $config['headerlink_responsive'],
+			'HEADERLINK_RESPONSIVE_WIDTH'		=> $config['headerlink_responsive_width'],
 		]);
 	}
 }
