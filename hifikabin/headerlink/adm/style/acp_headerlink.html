@@ -11,7 +11,7 @@
 		<dl>
 			<dt><label for="headerlink_enable">{{ lang('ACP_HEADERLINK_ENABLE') ~ lang('COLON') }}</label></dt>
 			<dd><input type="radio" class="radio" id="headerlink_enable" name="headerlink_enable" value="1" {% if HEADERLINK_ENABLE %}checked="checked"{% endif %}> {{ lang('YES') }} &nbsp; 
-				<input type="radio" class="radio" id="headerlink_enable" name="headerlink_enable" value="0" {% if not HEADERLINK_ENABLE %}checked="checked"{% endif %}> {{ lang('NO') }}
+				<input type="radio" class="radio" name="headerlink_enable" value="0" {% if not HEADERLINK_ENABLE %}checked="checked"{% endif %}> {{ lang('NO') }}
 			</dd>
 		</dl>
 		<dl>
@@ -29,6 +29,7 @@
 			</dt>
 			<dd>
 				<select name="headerlink_navbar" id="headerlink_navbar">
+					<option value="0" {% if HEADERLINK_NAVBAR eq '0' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_SWITCH_ABOVE_BOARD') }}</option>
 					<option value="1" {% if HEADERLINK_NAVBAR eq '1' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_SWITCH_IN_HEADER') }}</option>
 					<option value="2" {% if HEADERLINK_NAVBAR eq '2' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_SWITCH_UNDER_HEADER') }}</option>
 					<option value="3" {% if HEADERLINK_NAVBAR eq '3' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_SWITCH_IN_NAVBAR') }}</option>
@@ -41,24 +42,46 @@
 			</dt>
 			<dd>
 				<select name="headerlink_align" id="headerlink_align">
-					<option value="1" {% if HEADERLINK_ALIGN eq '1' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_ALIGN_START') }}</option>
-					<option value="2" {% if HEADERLINK_ALIGN eq '2' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_ALIGN_CENTER') }}</option>
-					<option value="3" {% if HEADERLINK_ALIGN eq '3' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_ALIGN_END') }}</option>
+					<option value="0" {% if HEADERLINK_ALIGN eq '0' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_ALIGN_START') }}</option>
+					<option value="1" {% if HEADERLINK_ALIGN eq '1' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_ALIGN_CENTER') }}</option>
+					<option value="2" {% if HEADERLINK_ALIGN eq '2' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_ALIGN_END') }}</option>
 				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="headerlink_responsive">{{ lang('ACP_HEADERLINK_RESPONSIVE') ~ lang('COLON') }}</label>
+				<br><span>{{ lang('ACP_HEADERLINK_RESPONSIVE_EXPLAIN') }}</span>
+			</dt>
+			<dd>
+				<select name="headerlink_responsive" id="headerlink_responsive">
+					<option value="0" {% if HEADERLINK_RESPONSIVE eq '0' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_RESPONSIVE_NATURAL_CHOICE') }}</option>
+					<option value="1" {% if HEADERLINK_RESPONSIVE eq '1' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_RESPONSIVE_WIDTH_CHOICE') }}</option>
+					<option value="2" {% if HEADERLINK_RESPONSIVE eq '2' %} selected="selected" {% endif %}>{{ lang('ACP_HEADERLINK_RESPONSIVE_AUTO_CHOICE') }}</option>
+				</select>
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label for="headerlink_responsive_width">{{ lang('ACP_HEADERLINK_RESPONSIVE_WIDTH_VAL') ~ lang('COLON') }}</label>
+				<br><span>{{ lang('ACP_HEADERLINK_RESPONSIVE_WIDTH_VAL_EXPLAIN') }}</span>
+			</dt>
+			<dd>
+				<input id="headerlink_responsive_width" class="responsive-choice-{{ HEADERLINK_RESPONSIVE }}" name="headerlink_responsive_width" type="number" value="{{ HEADERLINK_RESPONSIVE_WIDTH }}" min="360">
 			</dd>
 		</dl>
 	</fieldset>
 
 	<p class="submit-buttons">
 		{{ S_FORM_TOKEN }}
-		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}">&nbsp;
-		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}">
+		<input class="button1" type="submit" name="submit" value="{{ lang('SUBMIT') }}">&nbsp;
+		<input class="button2" type="reset" name="reset" value="{{ lang('RESET') }}">
 	</p>
 
 	<fieldset>
 		<legend>{{ lang('ACP_HEADERLINK_PREVIEW') }} <i class="fa fa-question-circle fa-fw i-preview" title="{{ lang('ACP_HEADERLINK_PREVIEW_EXPLAIN') }}"></i>
 		</legend>
-		<ul id="headerlink-preview" class="headerlink-preview {% if HEADERLINK_ALIGN eq '2' %}headerlink-center{% elseif HEADERLINK_ALIGN eq '3' %}headerlink-right{% else %}headerlink-end{% endif %}">
+		<ul id="headerlink-preview" class="headerlink-preview {% if HEADERLINK_ALIGN eq '1' %}headerlink-center{% elseif HEADERLINK_ALIGN eq '2' %}headerlink-right{% else %}headerlink-end{% endif %}">
 		{% for headerlink_urls in loops.headerlink_urls %}
 			{% if headerlink_urls.HEADERLINK_URL %}
 			<li style="--headerlink-bg: {{ headerlink_urls.HEADERLINK_BUTTON_COLOUR }}; --headerlink-text-color: {{ headerlink_urls.HEADERLINK_TEXT_COLOUR }};{% if headerlink_urls.HEADERLINK_ICON_SW eq '1' %} --headerlink-icon-color: {{ headerlink_urls.HEADERLINK_ICON_COLOUR }};{% endif %}{% if headerlink_urls.HEADERLINK_TEXT_SHADOW eq '1' %} --headerlink-text-shadow: {{ headerlink_urls.HEADERLINK_TEXT_SHADOW_COLOUR }};{% endif %}" data-row="headerlink_row_{{ loop.index }}">
@@ -88,7 +111,7 @@
 					<br><span>{{ lang('ACP_HEADERLINK_URL_EXPLAIN') }}</span>
 				</dt>
 				<dd>
-					<input id="headerlink_url_{{ loop.index }}" name="headerlink_url[]" type="text" value="{{ headerlink_urls.HEADERLINK_URL }}" size="80%">
+					<input id="headerlink_url_{{ loop.index }}" name="headerlink_url[]" type="url" value="{{ headerlink_urls.HEADERLINK_URL }}" size="80">
 				</dd>
 			</dl>
 			<dl>
@@ -97,7 +120,7 @@
 					<br><span>{{ lang('ACP_HEADERLINK_NAME_EXPLAIN') }}</span>
 				</dt>
 				<dd>
-					<input class="headerlink_name_input" id="headerlink_name_{{ loop.index }}" name="headerlink_name[]" type="text" value="{{ headerlink_urls.HEADERLINK_NAME }}" size="80%">
+					<input class="headerlink_name_input" id="headerlink_name_{{ loop.index }}" name="headerlink_name[]" type="text" value="{{ headerlink_urls.HEADERLINK_NAME }}" size="80">
 				</dd>
 			</dl>
 			<dl>
@@ -106,7 +129,7 @@
 					<br><span>{{ lang('ACP_HEADERLINK_HOVER_EXPLAIN') }}</span>
 				</dt>
 				<dd>
-					<input id="headerlink_hover_{{ loop.index }}" class="headerlink_hover" name="headerlink_hover[]" type="text" value="{{ headerlink_urls.HEADERLINK_HOVER }}" size="80%">
+					<input id="headerlink_hover_{{ loop.index }}" class="headerlink_hover" name="headerlink_hover[]" type="text" value="{{ headerlink_urls.HEADERLINK_HOVER }}" size="80">
 				</dd>
 			</dl>
 			<dl>
@@ -188,7 +211,7 @@
 					<br><span>{{ lang('ACP_HEADERLINK_ICON_CODE_EXPLAIN') }}</span>
 				</dt>
 				<dd>
-					<input id="headerlink_icon_{{ loop.index }}" class="input-fa-icon" name="headerlink_icon[]" type="text" value="{{ headerlink_urls.HEADERLINK_ICON }}" size="18%">
+					<input id="headerlink_icon_{{ loop.index }}" class="input-fa-icon" name="headerlink_icon[]" type="text" value="{{ headerlink_urls.HEADERLINK_ICON }}" size="18">
 				</dd>
 			</dl>
 			<dl data-is-togglable="icon_sw_{{ loop.index }}">
@@ -209,8 +232,8 @@
 
 	<p class="submit-buttons">
 		{{ S_FORM_TOKEN }}
-		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}">&nbsp;
-		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}">
+		<input class="button1" type="submit" name="submit" value="{{ lang('SUBMIT') }}">&nbsp;
+		<input class="button2" type="reset" name="reset" value="{{ lang('RESET') }}">
 	</p>
 </form>
 <script>
