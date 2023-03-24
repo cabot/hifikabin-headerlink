@@ -1,0 +1,5 @@
+{% if HEADERLINK_ENABLE and HEADERLINK_NAVBAR eq '3' and definition.HAS_LINK_TO_SHOW %}
+<li id="headerlink-wrap" class="headerlink-wrap headerlink-navbar{% if HEADERLINK_ALIGN eq '1' %} headerlink-center{% elseif HEADERLINK_ALIGN eq '2' %} headerlink-end{% endif %} responsive-{{ HEADERLINK_RESPONSIVE }}"{% if definition.HOVER_BG != '' %} data-hover="{{ HEADERLINK_HOVER_COLOUR }}"{% endif %}>
+	{% INCLUDE 'headerlink.html' %}
+</li>
+{% endif %}

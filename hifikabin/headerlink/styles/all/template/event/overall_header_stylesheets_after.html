@@ -1,0 +1,63 @@
+{% if HEADERLINK_ENABLE %}
+    {% if HEADERLINK_RESPONSIVE eq '1' || HEADERLINK_RESPONSIVE eq '2' %}
+        {% if HEADERLINK_RESPONSIVE eq '1' %}
+            {% for headerlink_urls in loops.headerlink_urls %}
+                {% if loop.first %}
+                    {% DEFINE SUB_TOG_BG = headerlink_urls.HEADERLINK_BUTTON_COLOUR %}
+                    {% DEFINE SUB_TOG_COLOR = headerlink_urls.HEADERLINK_TEXT_COLOUR %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if HEADERLINK_RESPONSIVE eq '2' %}
+            {% for headerlink_urls in loops.headerlink_urls %}
+                {% if loop.last %}
+                    {% DEFINE SUB_TOG_BG = headerlink_urls.HEADERLINK_BUTTON_COLOUR %}
+                    {% DEFINE SUB_TOG_COLOR = headerlink_urls.HEADERLINK_TEXT_COLOUR %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <style>
+        {% if definition.SUB_TOG_BG != '' || definition.SUB_TOG_COLOR != '' %}
+        .sub-toggler {
+            {% if definition.SUB_TOG_BG != '' %}
+            --sub-toggler-bg: {{ definition.SUB_TOG_BG }};
+            {% endif %}
+            {% if definition.SUB_TOG_COLOR != '' %}
+            --sub-toggler-color: {{ definition.SUB_TOG_COLOR }};
+            {% endif %}
+        }
+        {% endif %}
+        {% if HEADERLINK_RESPONSIVE eq '1' %}
+        @media (max-width: {{ HEADERLINK_RESPONSIVE_WIDTH }}px) {
+            .headerlink-js .sub-toggler {
+                display: initial;
+            }
+            .headerlink-js .headerlink {
+                display: none;
+                flex-direction: column;
+                left: 4px;
+                position: absolute;
+                z-index: 99;
+            }
+            .headerlink-js .rtl .headerlink {
+                left: auto;
+                right: 4px;
+            }        
+            .headerlink-js .responsive-1 li {
+                margin: 2px 0 0;
+            }
+        }
+        {% endif %}
+        </style>
+    {% endif %}
+
+    {% DEFINE HOVER_BG = 'HEADERLINK_HOVER_COLOUR' %}
+    {% if definition.HOVER_BG != '' %}
+    <style>
+        .headerlink-wrap {
+            --headerlink-hover-bg: {{ HEADERLINK_HOVER_COLOUR }};
+        }
+    </style>
+    {% endif %}
+{% endif %}

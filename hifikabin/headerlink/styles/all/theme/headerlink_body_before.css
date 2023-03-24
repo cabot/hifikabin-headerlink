@@ -1,0 +1,15 @@
+body {
+    --headerlink-spacing: 10px;
+    padding-top: var(--headerlink-spacing);
+}
+
+.headerlink-wrap {
+	margin-bottom: var(--headerlink-spacing);
+    padding: 0 var(--headerlink-spacing);
+}
+
+@media (max-width: 700px) {
+	body {
+		--headerlink-spacing: 4px;
+	}
+}

@@ -1,0 +1,17 @@
+.headerbar {
+	margin-bottom: 0;
+}
+
+.headerlink-wrap {
+	padding-bottom: 2px;
+}
+
+@media (min-width: 701px) {
+	.headerbar {
+		border-radius: 7px 7px 0 0;
+	}
+
+	.headerlink-wrap {
+		border-radius: 0 0 7px 7px;
+	}
+}
