@@ -24,17 +24,11 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\template\template */
 	protected $template;
 
-	/** @var  \phpbb\user */
-	protected $user;
-
 	/** @var \phpbb\config\config */
 	protected $config;
 
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
-
-	/** @var  \phpbb\request\request */
-	protected $request;
 
 	/** @var string */
 	protected $headerlink_table;
@@ -42,21 +36,17 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*
-	* @param \phpbb\template\template			$template
-	* @param \phpbb\user 						$user
-	* @param \phpbb\db\driver\driver_interface	$db
-	* @param \phpbb\request\request				$request
 	* @param \phpbb\config\config				$config
+	* @param \phpbb\template\template			$template
+	* @param \phpbb\db\driver\driver_interface	$db
 	* @param string								$headerlink_table
 	*/
 
-	public function __construct(template $template, user $user, config $config, driver_interface $db, request $request, $headerlink_table)
+	public function __construct(config $config, template $template, driver_interface $db, $headerlink_table)
 	{
-		$this->template = $template;
-		$this->user = $user;
-		$this->db = $db;
-		$this->request = $request;
 		$this->config = $config;
+		$this->template = $template;
+		$this->db = $db;
 		$this->headerlink_table = $headerlink_table;
 	}
 
@@ -85,11 +75,13 @@ class listener implements EventSubscriberInterface
 			'HEADERLINK_HOVER_COLOUR'			=> $this->config['headerlink_hover_colour'],
 			'HEADERLINK_NAVBAR'					=> $this->config['headerlink_navbar'],
 			'HEADERLINK_ALIGN'					=> $this->config['headerlink_align'],
+			'HEADERLINK_RESPONSIVE'				=> $this->config['headerlink_responsive'],
+			'HEADERLINK_RESPONSIVE_WIDTH'		=> $this->config['headerlink_responsive_width'],
 		]);
 
 		$sql = 'SELECT * 
 		FROM '. $this->headerlink_table;
-		$result	 = $this->db->sql_query($sql,86400);
+		$result	 = $this->db->sql_query($sql, 86400);
 
 
 			while ($row = $this->db->sql_fetchrow($result))
