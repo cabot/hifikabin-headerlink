@@ -81,7 +81,7 @@
 	--headerlink-hover-bg: var(--sub-toggler-bg);
 }
 
-/* Eccessibility
+/* Accessibility
 ---------------------------------------------------------------------------- */
 .skip-links {
 	display: inline-flex;
