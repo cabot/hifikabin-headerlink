@@ -1,0 +1,15 @@
+{% if HEADERLINK_ENABLE and definition.HAS_LINK_TO_SHOW %}
+	{% if not S_IS_BOT %}
+	<div class="skip-links">
+		<a href="#nav-main" class="skip-link">{{ lang('HEADERLINK_SKIP_TO_MENU') }}</a>
+		<a href="#start_here" class="skip-link">{{ lang('HEADERLINK_SKIP_TO_CONTENT') }}</a>
+		<a href="#keywords" class="skip-link">{{ lang('HEADERLINK_SKIP_TO_SEARCH') }}</a>
+	</div>
+	{% endif %}
+	{% if HEADERLINK_NAVBAR eq '0' %}
+		{% INCLUDECSS '@hifikabin_headerlink/headerlink_body_before.css' %}
+		<div id="headerlink-wrap" class="headerlink-wrap above-header{% if HEADERLINK_ALIGN eq '1' %} headerlink-center{% elseif HEADERLINK_ALIGN eq '2' %} headerlink-end{% endif %} responsive-{{ HEADERLINK_RESPONSIVE }}"{% if definition.HOVER_BG != '' %} data-hover="{{ HEADERLINK_HOVER_COLOUR }}"{% endif %}>
+			{% INCLUDE 'headerlink.html' %}
+		</div>
+	{% endif %}
+{% endif %}

@@ -1,0 +1,144 @@
+.headerlink-wrap {
+	clear: both;
+	position: relative;
+}
+
+.headerlink-center {
+	justify-content: center;
+}
+
+.headerlink-end {
+	justify-content: end;
+}
+
+.headerlink-wrap.headerlink-navbar {
+	float: none;
+	line-height: 1;
+	margin-bottom: 2px;
+}
+
+.headerlink,
+.headerlink-wrap.responsive-0 .headerlink {
+    display: flex;
+	flex-wrap: wrap;
+	gap: 4px 0;
+	list-style: none;
+}
+
+.headerlink-js .headerlink {
+	flex-wrap: nowrap;
+	gap: initial;
+}
+
+.headerlink-list-item {
+	margin: 0 4px;
+}
+
+.headerlink-link {
+	background-color: var(--headerlink-bg);
+	border-radius: 4px;
+	display: block;
+	font-size: 13px;
+	padding: 7px;
+	transition: background-color 0.2s;
+	white-space: nowrap;
+}
+
+.headerlink-link:hover {
+	background-color: var(--headerlink-hover-bg);
+	text-decoration: none;
+}
+
+[data-hover="transparent"] .headerlink-link:hover {
+	--headerlink-hover-bg: var(--headerlink-bg);
+}
+
+.headerlink-link i {
+	color: var(--headerlink-icon-color);
+}
+
+.headerlink-link span {
+	color: var(--headerlink-text-color);
+}
+
+.sub-toggler {
+	background-color: var(--sub-toggler-bg);
+	color: var(--sub-toggler-color);
+	transition: background-color 0.2s;
+}
+
+.sub-toggler:hover {
+	background-color: var(--headerlink-hover-bg);
+	color: var(--sub-toggler-color);
+}
+
+.sub-toggler:focus {
+	color: var(--sub-toggler-color);
+	outline: none;
+}
+
+[data-hover="transparent"] .sub-toggler:hover {
+	--headerlink-hover-bg: var(--sub-toggler-bg);
+}
+
+/* Accessibility
+---------------------------------------------------------------------------- */
+.skip-links {
+	display: inline-flex;
+	flex-direction: column;
+	position: absolute;
+	top: 0;
+}
+
+a.skip-link {
+	background: #000edf;
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: 1em;
+	position: relative;
+	top: -20em;
+	z-index: 99;
+}
+
+.skip-link:focus {
+	top: auto;
+}
+
+.headerlink-wrap a:focus-visible,
+.headerlink-wrap button:focus-visible {
+	outline: 4px double #000edf;
+}
+
+/* Responsive 1
+---------------------------------------------------------------------------- */
+.toggler-1 {
+	border-radius: 4px;
+	display: none;
+	margin: 0 4px;
+	padding: 7px;
+}
+
+/* Responsive 2
+---------------------------------------------------------------------------- */
+
+.sublist {
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	z-index: 99;
+}
+.rtl .sublist {
+	left: 0;
+	right: auto;
+}
+
+.sublist li {
+	margin: 2px 0 0;
+}
+
+.has-sublist {
+	position: relative;
+}

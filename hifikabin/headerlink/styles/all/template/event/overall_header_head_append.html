@@ -1,0 +1,21 @@
+{% if HEADERLINK_ENABLE %}
+    {% for headerlink_urls in loops.headerlink_urls %}
+        {% if (headerlink_urls.HEADERLINK_PERMISSION eq '1' and not S_REGISTERED_USER) or (headerlink_urls.HEADERLINK_PERMISSION eq '2' and S_REGISTERED_USER) or (headerlink_urls.HEADERLINK_PERMISSION eq '4' and U_ACP) or (headerlink_urls.HEADERLINK_PERMISSION eq '5' and U_MCP) or headerlink_urls.HEADERLINK_PERMISSION eq '3' %}	
+            {% DEFINE HAS_LINK_TO_SHOW = '1' %}
+        {% endif %}
+    {% endfor %}
+    {% if definition.HAS_LINK_TO_SHOW %}
+        <script>document.documentElement.classList.add("headerlink-js");</script>
+        {% INCLUDECSS '@hifikabin_headerlink/headerlink.css' %}
+        {% if HEADERLINK_RESPONSIVE eq '1' %}
+            {% INCLUDEJS '@hifikabin_headerlink/headerlink_responsive1.js' %}
+            {% DEFINE RESPONSIVE_WIDTH = 'HEADERLINK_RESPONSIVE_WIDTH' %}
+            {% if definition.RESPONSIVE_WIDTH != '' %}
+                <script>const responsiveWidth = {{ HEADERLINK_RESPONSIVE_WIDTH }};</script>
+            {% endif %}
+        {% elseif HEADERLINK_RESPONSIVE eq '2' %}
+            <script>const revealLang = "{{ lang('HEADERLINK_REVEAL')|e('js') }}";</script>
+            {% INCLUDEJS '@hifikabin_headerlink/headerlink_responsive2.js' %}
+        {% endif %}
+    {% endif %}
+{% endif %}

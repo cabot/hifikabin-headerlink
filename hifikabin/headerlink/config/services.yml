@@ -4,11 +4,9 @@ services:
     hifikabin.headerlink.listener:
         class: hifikabin\headerlink\event\listener
         arguments:
-        - '@template'
-        - '@user'
-        - '@dbal.conn'
-        - '@request'
-        - '%tables.headerlink_table%'
         - '@config'
+        - '@template'
+        - '@dbal.conn'
+        - '%tables.headerlink_table%'
         tags:
             - { name: event.listener }
