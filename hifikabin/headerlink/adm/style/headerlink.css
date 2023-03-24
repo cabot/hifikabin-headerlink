@@ -22,8 +22,7 @@
 
 .headerlink-preview li {
 	--headerlink-text-shadow: transparent;
-	margin: 0 2px 4px;
-	border-radius: 10px;
+	margin: 0 4px 4px;
 	list-style-type: none;
 }
 
@@ -48,8 +47,11 @@
 	--headerlink-hover-bg: var(--headerlink-bg);
 }
 
+
 .headerlink-preview li i {
 	color: var(--headerlink-icon-color);
+	display: inline-block;
+	font-size: 14px;
 }
 
 .headerlink-preview li span {
