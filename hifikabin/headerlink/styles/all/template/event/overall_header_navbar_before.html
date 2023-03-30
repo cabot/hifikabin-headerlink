@@ -1,6 +1,6 @@
-{% if HEADERLINK_ENABLE and HEADERLINK_NAVBAR eq '2' and definition.HAS_LINK_TO_SHOW %}
+{% if HEADERLINK_ENABLE and HEADERLINK_NAVBAR eq 2 and definition.HAS_LINK_TO_SHOW %}
 {% INCLUDECSS '@hifikabin_headerlink/headerlink_navbar_before.css' %}
-<div id="headerlink-wrap" class="forumbg headerlink-wrap{% if HEADERLINK_ALIGN eq '1' %} headerlink-center{% elseif HEADERLINK_ALIGN eq '2' %} headerlink-end{% endif %} responsive-{{ HEADERLINK_RESPONSIVE }}"{% if definition.HOVER_BG != '' %} data-hover="{{ HEADERLINK_HOVER_COLOUR }}"{% endif %}>
+<div id="headerlink-wrap" class="forumbg headerlink-wrap{% if HEADERLINK_ALIGN eq 1 %} headerlink-center{% elseif HEADERLINK_ALIGN eq 2 %} headerlink-end{% endif %} responsive-{{ HEADERLINK_RESPONSIVE }}"{% if definition.HOVER_BG != '' %} data-hover="{{ HEADERLINK_HOVER_COLOUR }}"{% endif %}>
 	{% INCLUDE 'headerlink.html' %}
 </div>
 {% endif %}

@@ -33,7 +33,7 @@ if (empty($lang) || !is_array($lang))
 // ’ « » “ ” …
 //
 $lang = array_merge($lang, [
-	'HEADERLINK_NEW_TAB'			=> 'S’ouvre dans un nouvel onglet',
+	'HEADERLINK_NEW_TAB'			=> '(Ouvre un nouvel onglet)',
 	'HEADERLINK_REVEAL'				=> 'Ouvre et ferme la liste de liens',
 	'HEADERLINK_SKIP_TO_CONTENT'	=> 'Aller au contenu',
 	'HEADERLINK_SKIP_TO_MENU'		=> 'Aller au menu',

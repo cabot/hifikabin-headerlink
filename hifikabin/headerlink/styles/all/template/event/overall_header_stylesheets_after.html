@@ -1,18 +1,18 @@
 {% if HEADERLINK_ENABLE %}
-    {% if HEADERLINK_RESPONSIVE eq '1' || HEADERLINK_RESPONSIVE eq '2' %}
-        {% if HEADERLINK_RESPONSIVE eq '1' %}
-            {% for headerlink_urls in loops.headerlink_urls %}
+    {% if HEADERLINK_RESPONSIVE eq 1 || HEADERLINK_RESPONSIVE eq 2 %}
+        {% if HEADERLINK_RESPONSIVE eq 1 %}
+            {% for headerlink_url in headerlink_urls %}
                 {% if loop.first %}
-                    {% DEFINE SUB_TOG_BG = headerlink_urls.HEADERLINK_BUTTON_COLOUR %}
-                    {% DEFINE SUB_TOG_COLOR = headerlink_urls.HEADERLINK_TEXT_COLOUR %}
+                    {% DEFINE SUB_TOG_BG = headerlink_url.HEADERLINK_BUTTON_COLOUR %}
+                    {% DEFINE SUB_TOG_COLOR = headerlink_url.HEADERLINK_TEXT_COLOUR %}
                 {% endif %}
             {% endfor %}
         {% endif %}
-        {% if HEADERLINK_RESPONSIVE eq '2' %}
-            {% for headerlink_urls in loops.headerlink_urls %}
+        {% if HEADERLINK_RESPONSIVE eq 2 %}
+            {% for headerlink_url in headerlink_urls %}
                 {% if loop.last %}
-                    {% DEFINE SUB_TOG_BG = headerlink_urls.HEADERLINK_BUTTON_COLOUR %}
-                    {% DEFINE SUB_TOG_COLOR = headerlink_urls.HEADERLINK_TEXT_COLOUR %}
+                    {% DEFINE SUB_TOG_BG = headerlink_url.HEADERLINK_BUTTON_COLOUR %}
+                    {% DEFINE SUB_TOG_COLOR = headerlink_url.HEADERLINK_TEXT_COLOUR %}
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -28,7 +28,7 @@
             {% endif %}
         }
         {% endif %}
-        {% if HEADERLINK_RESPONSIVE eq '1' %}
+        {% if HEADERLINK_RESPONSIVE eq 1 %}
         @media (max-width: {{ HEADERLINK_RESPONSIVE_WIDTH }}px) {
             .headerlink-js .sub-toggler {
                 display: initial;

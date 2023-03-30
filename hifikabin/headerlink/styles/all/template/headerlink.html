@@ -1,20 +1,22 @@
-{% if HEADERLINK_RESPONSIVE eq '1' %}
-<button id="sub-toggler" class="sub-toggler toggler-1" aria-label="{{ lang('HEADERLINK_REVEAL') }}" aria-controls="headerlink" aria-expanded="false">
-	<svg viewBox="0 0 10 8" width="16" role="presentation" focusable="false"><path d="M1 1h8M1 4h 8M1 7h8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+{% if HEADERLINK_RESPONSIVE eq 1 %}
+<button id="sub-toggler" class="sub-toggler toggler-1" type="button" aria-label="{{ lang('HEADERLINK_REVEAL') }}" aria-controls="headerlink" aria-expanded="false">
+	<svg viewBox="0 0 10 8" width="16" role="presentation" focusable="false" aria-hidden="true"><path d="M1 1h8M1 4h 8M1 7h8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
 </button>
 {% endif %}
-<ul id="headerlink" class="headerlink headerlink-wrap above-header{% if HEADERLINK_ALIGN eq '1' %} headerlink-center{% elseif HEADERLINK_ALIGN eq '2' %} headerlink-end{% endif %}">
-{% for headerlink_urls in loops.headerlink_urls %}
-	{% if (headerlink_urls.HEADERLINK_PERMISSION eq '1' and not S_REGISTERED_USER) or (headerlink_urls.HEADERLINK_PERMISSION eq '2' and S_REGISTERED_USER) or (headerlink_urls.HEADERLINK_PERMISSION eq '4' and U_ACP) or (headerlink_urls.HEADERLINK_PERMISSION eq '5' and U_MCP) or headerlink_urls.HEADERLINK_PERMISSION eq '3' %}
-	<li class="headerlink-list-item nav-button" style="--headerlink-bg: {{ headerlink_urls.HEADERLINK_BUTTON_COLOUR }}; --headerlink-text-color: {{ headerlink_urls.HEADERLINK_TEXT_COLOUR }};{% if headerlink_urls.HEADERLINK_ICON_SW eq '1' %} --headerlink-icon-color: {{ headerlink_urls.HEADERLINK_ICON_COLOUR }};{% endif %}{% if pouet == 'transparent' %}--headerlink-hover-bg: {{ headerlink_urls.HEADERLINK_BUTTON_COLOUR }};{% endif %}">
-		<a class="headerlink-link" href="{{ headerlink_urls.HEADERLINK_URL }}"{% if headerlink_urls.HEADERLINK_HOVER %} title="{{ headerlink_urls.HEADERLINK_HOVER }}"{% endif %}{% if headerlink_urls.HEADERLINK_TARGET eq 0 %} target="_blank"{% endif %}{% if headerlink_urls.HEADERLINK_TEXT_SHADOW eq 1 %} style="text-shadow: 1px 1px {{ headerlink_urls.HEADERLINK_TEXT_SHADOW_COLOUR }};"{% endif %}>
-			{% if headerlink_urls.HEADERLINK_ICON  %}
-			<i class="icon {{ headerlink_urls.HEADERLINK_ICON }} fa-fw"></i>
-			{% endif %}
-			<span>{{ headerlink_urls.HEADERLINK_NAME }}</span>
+<ul id="headerlink" class="headerlink headerlink-wrap above-header{% if HEADERLINK_ALIGN eq 1 %} headerlink-center{% elseif HEADERLINK_ALIGN eq 2 %} headerlink-end{% endif %}">
+{% for headerlink_url in headerlink_urls %}
+	{% if (headerlink_url.HEADERLINK_PERMISSION eq 1 and not S_REGISTERED_USER) or (headerlink_url.HEADERLINK_PERMISSION eq 2 and S_REGISTERED_USER) or (headerlink_url.HEADERLINK_PERMISSION eq 4 and U_ACP) or (headerlink_url.HEADERLINK_PERMISSION eq 5 and U_MCP) or headerlink_url.HEADERLINK_PERMISSION eq 3 %}
+	<li class="headerlink-list-item nav-button" style="--headerlink-bg: {{ headerlink_url.HEADERLINK_BUTTON_COLOUR }}; --headerlink-text-color: {{ headerlink_url.HEADERLINK_TEXT_COLOUR }};{% if headerlink_url.HEADERLINK_ICON_SW eq 1 %} --headerlink-icon-color: {{ headerlink_url.HEADERLINK_ICON_COLOUR }};{% endif %};">
+		<a class="headerlink-link"
+		href="{{ headerlink_url.HEADERLINK_URL }}"
+		{% if headerlink_url.HEADERLINK_HOVER or headerlink_url.HEADERLINK_TARGET eq 0 %} title="{% if headerlink_url.HEADERLINK_HOVER %}{{ headerlink_url.HEADERLINK_HOVER }}{% endif %}{% if headerlink_url.HEADERLINK_TARGET eq 0 %} {{ lang('HEADERLINK_NEW_TAB') }}{% endif %}"{% endif %}
+		{% if headerlink_url.HEADERLINK_TARGET eq 0 %} target="_blank"{% endif %}
+		{% if headerlink_url.HEADERLINK_TEXT_SHADOW eq 1 %} style="text-shadow: 1px 1px {{ headerlink_url.HEADERLINK_TEXT_SHADOW_COLOUR }};"{% endif %}>
+			{% if headerlink_url.HEADERLINK_ICON  %}<i class="icon {{ headerlink_url.HEADERLINK_ICON }} fa-fw" aria-hidden="true"></i>{% endif %}
+			<span>{{ headerlink_url.HEADERLINK_NAME }}</span>
+			{% if headerlink_url.HEADERLINK_TARGET eq 0 %}<span class="sr-only">{{ lang('HEADERLINK_NEW_TAB') }}</span>{% endif %}
 		</a>
 	</li>
 	{% endif %}
 {% endfor %}
 </ul>
-

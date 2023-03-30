@@ -1,9 +1,11 @@
 $(function () {
 
-	let $headerlink = $("#headerlink");
+	let $headerlink = $("#headerlink"),
+		hasSubListId = "has-sublist",
+		togglerId = "sub-toggler",
+		subListId = "sublist";
 
 	function fitMenu() {
-
 		let itemWidth = 0,
 			menuWidth = $headerlink.width() - 60,
 			subListItem = "";
@@ -16,37 +18,42 @@ $(function () {
 			}
 		});
 
-		let subList = '<li id="has-sublist" class="has-sublist"><a href="#" role="button" id="sub-toggler" class="headerlink-link sub-toggler" aria-controls="sublist" aria-expanded="false" aria-pressed="false"><span class="sr-only">' + revealLang + '</span><svg viewBox="0 0 10 8" width="16" role="presentation" focusable="false"><path d="M1 1h8M1 4h 8M1 7h8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></a><ul id="sublist" class="sublist">' + subListItem + '</ul></li>'
+		let html = '<li id="'+ hasSubListId +'" class="headerlink-list-item has-sublist"><button id="'+ togglerId +'" class="headerlink-link sub-toggler" type="button" aria-controls="sublist" aria-expanded="false"><span class="sr-only">' + revealLang + '</span><svg viewBox="0 0 10 8" width="16" role="presentation" focusable="false"><path d="M1 1h8M1 4h 8M1 7h8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></button><ul id="' + subListId + '" class="sublist">' + subListItem + '</ul></li>'
 
-		$headerlink.append(subList);
+		$headerlink.append(html);
 
-		$("#sub-toggler").on("click", function (e) {
-			$(this).toggleClass("opened")
-				   .next().toggleClass("is-open").slideToggle(200).css("display", "flex");
-
-			if ($(this).attr("aria-expanded") === "false") {
-				$(this).attr({ "aria-expanded": (t = "true"), "aria-pressed": t });
-			} else {
-				$(this).attr({ "aria-expanded": (f = "false"), "aria-pressed": f });
-			}
-
-			e.preventDefault();
-		});
-
-		if (subListItem == "") {
-			$("#has-sublist").hide();
+		if (subListItem === "") {
+			$("#" + hasSubListId).hide();
 		} else {
-			$("#has-sublist").show();
+			$("#" + hasSubListId).show();
 		}
 
+		$("#" + togglerId).on("click", function (e) {
+			e.preventDefault();
+			$("#" + togglerId).toggleClass("opened-sub").attr("aria-expanded", $(this).attr("aria-expanded") === "true" ? "false" : "true");
+			$("#" + subListId).toggleClass("is-open").slideToggle(200).css("display", "flex");
+		});
 	}
-	fitMenu();
+
+	function closeSubList() {
+		$("body").on("keyup", function (e) {
+			if (e.key === "Escape" || e.keyCode === 27) {
+				e.preventDefault();
+				if ($("#" + subListId).is(":visible")) {
+					$("#" + togglerId).attr("aria-expanded", "false").removeClass("opened-sub").focus();
+					$("#" + subListId).removeClass("is-open").slideUp(200);
+				}
+			}
+		});
+	}
 
 	$(window).on("resize", function () {
-		$headerlink.append($("#sublist").html());
-		$("#has-sublist").remove();
-		$("#sub-toggler").attr({ "aria-expanded": (f = "false"), "aria-pressed": f });
+		$headerlink.append($("#" + subListId).html());
+		$("#" + hasSubListId).remove();
+		$("#" + togglerId).attr("aria-expanded", "false");
 		fitMenu();
 	});
 
+	fitMenu();
+	closeSubList();
 });

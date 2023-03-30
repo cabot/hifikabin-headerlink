@@ -1,5 +1,5 @@
 body {
-    --headerlink-spacing: 10px;
+    --headerlink-spacing: 4px;
     padding-top: var(--headerlink-spacing);
 }
 
@@ -8,8 +8,8 @@ body {
     padding: 0 var(--headerlink-spacing);
 }
 
-@media (max-width: 700px) {
+@media (min-width: 700px) {
 	body {
-		--headerlink-spacing: 4px;
+		--headerlink-spacing: 10px;
 	}
 }
