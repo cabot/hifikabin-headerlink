@@ -82,7 +82,6 @@ class listener implements EventSubscriberInterface
 		FROM '. $this->headerlink_table;
 		$result	 = $this->db->sql_query($sql, 86400);
 
-
 			while ($row = $this->db->sql_fetchrow($result))
 			{
 			if (!empty($row['headerlink_url']))
