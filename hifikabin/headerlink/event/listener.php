@@ -10,7 +10,6 @@
 namespace hifikabin\headerlink\event;
 
 use phpbb\template\template;
-use phpbb\user;
 use phpbb\db\driver\driver_interface;
 use phpbb\config\config;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
