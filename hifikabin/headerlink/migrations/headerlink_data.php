@@ -1,11 +1,11 @@
 <?php
 /**
-*
-* @package phpBB Extension - Header Link
-* @copyright (c) 2015 - HiFiKabin
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * @package phpBB Extension - Header Link
+ * @copyright (c) 2015 - HiFiKabin
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace hifikabin\headerlink\migrations;
 
@@ -41,7 +41,7 @@ class headerlink_data extends \phpbb\db\migration\migration
 
 	public function update_data()
 	{
-		// ADD CONFIG 
+		// ADD CONFIG
 		return [
 			['config.add', ['headerlink_enable', '0']],
 			['config.add', ['headerlink_hover_colour', '#0c93d7']],
@@ -59,11 +59,11 @@ class headerlink_data extends \phpbb\db\migration\migration
 	}
 
 	/**
-	* Drop the Header Link table schema from the database
-	*
-	* @return array Array of table schema
-	* @access public
-	*/
+	 * Drop the Header Link table schema from the database
+	 *
+	 * @return array Array of table schema
+	 * @access public
+	 */
 	public function revert_schema()
 	{
 		return [
