@@ -1,11 +1,11 @@
 <?php
 /**
-*
-* @package phpBB Extension - Header Link
-* @copyright (c) 2015 - HiFiKabin
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * @package phpBB Extension - Header Link
+ * @copyright (c) 2015 - HiFiKabin
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace hifikabin\headerlink\event;
 
@@ -15,9 +15,9 @@ use phpbb\config\config;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
-* Event listener
-*
-*/
+ * Event listener
+ *
+ */
 class listener implements EventSubscriberInterface
 {
 	/** @var \phpbb\template\template */
@@ -33,13 +33,13 @@ class listener implements EventSubscriberInterface
 	protected $headerlink_table;
 
 	/**
-	* Constructor
-	*
-	* @param \phpbb\config\config				$config
-	* @param \phpbb\template\template			$template
-	* @param \phpbb\db\driver\driver_interface	$db
-	* @param string								$headerlink_table
-	*/
+	 * Constructor
+	 *
+	 * @param \phpbb\config\config					$config
+	 * @param \phpbb\template\template				$template
+	 * @param \phpbb\db\driver\driver_interface		$db
+	 * @param string								$headerlink_table
+	 */
 
 	public function __construct(config $config, template $template, driver_interface $db, $headerlink_table)
 	{
@@ -78,7 +78,7 @@ class listener implements EventSubscriberInterface
 			'HEADERLINK_RESPONSIVE_WIDTH'		=> $this->config['headerlink_responsive_width'],
 		]);
 
-		$sql = 'SELECT * 
+		$sql = 'SELECT *
 		FROM '. $this->headerlink_table;
 		$result	 = $this->db->sql_query($sql, 86400);
 
