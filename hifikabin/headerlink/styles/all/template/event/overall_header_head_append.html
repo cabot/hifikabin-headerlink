@@ -1,7 +1,7 @@
 {% if HEADERLINK_ENABLE %}
     {% for headerlink_url in headerlink_urls %}
-        {% if (headerlink_url.HEADERLINK_PERMISSION eq 1 and not S_REGISTERED_USER) or (headerlink_url.HEADERLINK_PERMISSION eq 2 and S_REGISTERED_USER) or (headerlink_url.HEADERLINK_PERMISSION eq 4 and U_ACP) or (headerlink_url.HEADERLINK_PERMISSION eq '5' and U_MCP) or headerlink_url.HEADERLINK_PERMISSION eq 3 %}	
-            {% DEFINE HAS_LINK_TO_SHOW = '1' %}
+        {% if (headerlink_url.HEADERLINK_PERMISSION eq 1 and not S_REGISTERED_USER) or (headerlink_url.HEADERLINK_PERMISSION eq 2 and S_REGISTERED_USER) or (headerlink_url.HEADERLINK_PERMISSION eq 4 and U_ACP) or (headerlink_url.HEADERLINK_PERMISSION eq 5 and U_MCP) or headerlink_url.HEADERLINK_PERMISSION eq 3 %}
+            {% DEFINE HAS_LINK_TO_SHOW = true %}
         {% endif %}
     {% endfor %}
     {% if definition.HAS_LINK_TO_SHOW %}
