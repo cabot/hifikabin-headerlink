@@ -1,11 +1,11 @@
 <?php
 /**
-*
-* @package phpBB Extension - Header link
-* @copyright (c) 2015 - HiFiKabin
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * @package phpBB Extension - Header Link
+ * @copyright (c) 2015 - HiFiKabin
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 
 if (!defined('IN_PHPBB'))
