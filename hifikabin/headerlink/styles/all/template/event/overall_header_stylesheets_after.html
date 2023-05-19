@@ -1,4 +1,13 @@
 {% if HEADERLINK_ENABLE %}
+	{% DEFINE HOVER_BG = 'HEADERLINK_HOVER_COLOUR' %}
+	{% if definition.HOVER_BG != '' %}
+	<style>
+		.headerlink-wrap {
+			--headerlink-hover-bg: {{ HEADERLINK_HOVER_COLOUR }};
+		}
+	</style>
+	{% endif %}
+
 	{% if HEADERLINK_RESPONSIVE eq 1 || HEADERLINK_RESPONSIVE eq 2 %}
 
 		{% if HEADERLINK_RESPONSIVE eq 1 %}
@@ -59,14 +68,5 @@
 		</style>
 		{% endif %}
 
-	{% endif %}
-
-	{% DEFINE HOVER_BG = 'HEADERLINK_HOVER_COLOUR' %}
-	{% if definition.HOVER_BG != '' %}
-	<style>
-		.headerlink-wrap {
-			--headerlink-hover-bg: {{ HEADERLINK_HOVER_COLOUR }};
-		}
-	</style>
 	{% endif %}
 {% endif %}
