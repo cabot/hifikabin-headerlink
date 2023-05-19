@@ -1,17 +1,17 @@
 <?php
 /**
-*
-* @package phpBB Extension - Header Link
-* @copyright (c) 2015 - HiFiKabin
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * @package phpBB Extension - Header Link
+ * @copyright (c) 2015 - HiFiKabin
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 namespace hifikabin\headerlink\acp;
 
 /**
-* @package acp
-*/
+ * @package acp
+ */
 
 class main_module
 {
