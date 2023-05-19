@@ -1,11 +1,11 @@
 <?php
 /**
-*
-* @package phpBB Extension - Header link
-* @copyright (c) 2015 - HiFiKabin
-* @license GNU General Public License, version 2 (GPL-2.0)
-*
-*/
+ *
+ * @package phpBB Extension - Header Link
+ * @copyright (c) 2015 - HiFiKabin
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
 
 if (!defined('IN_PHPBB'))
@@ -43,7 +43,7 @@ $lang = array_merge($lang, [
 	'ACP_HEADERLINK_CONFIG_EXPLAIN'					=> 'Header Link Configuration and Preview.',
 	'ACP_HEADERLINK_DEFAULT_TITLE'					=> 'New link',
 	'ACP_HEADERLINK_DISABLE'						=> 'Disable this Link',
-	'ACP_HEADERLINK_ENABLE'							=> 'Enable header links',
+	'ACP_HEADERLINK_ENABLE'							=> 'Enable Header Links',
 	'ACP_HEADERLINK_GUEST'							=> 'Guests only',
 	'ACP_HEADERLINK_HOVER'							=> 'Link description',
 	'ACP_HEADERLINK_HOVER_COLOUR'					=> 'Background colour on hover',
@@ -60,7 +60,7 @@ $lang = array_merge($lang, [
 	'ACP_HEADERLINK_MEMBER'							=> 'Members only',
 	'ACP_HEADERLINK_MOD'							=> 'Moderators only',
 	'ACP_HEADERLINK_MORE_LINKS'						=> 'Add another link',
-	'ACP_HEADERLINK_NAVBAR'							=> 'Header link bar position',
+	'ACP_HEADERLINK_NAVBAR'							=> 'Header Link bar position',
 	'ACP_HEADERLINK_NAME'							=> 'Link name',
 	'ACP_HEADERLINK_NAME_EXPLAIN'					=> 'Enter the link name',
 	'ACP_HEADERLINK_NEW'							=> 'New tab',
