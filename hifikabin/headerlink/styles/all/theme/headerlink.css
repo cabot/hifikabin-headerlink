@@ -83,20 +83,13 @@
 
 /* Accessibility
 ---------------------------------------------------------------------------- */
-.skip-links {
-	display: inline-flex;
-	flex-direction: column;
-	position: absolute;
-	top: 0;
-}
-
 a.skip-link {
 	background: #000edf;
 	color: #fff;
 	font-size: 1.2em;
 	font-weight: bold;
 	padding: 1em;
-	position: relative;
+	position: absolute;
 	top: -20em;
 	z-index: 99;
 }
